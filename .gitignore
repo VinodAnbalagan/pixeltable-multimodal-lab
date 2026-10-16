@@ -4,6 +4,9 @@ pxt-champs/
 # Downloaded Pixeltable docs (reference only)
 docs/
 
+# Local scratch / reference files
+scratch/
+
 # Python
 .venv/
 __pycache__/
@@ -13,10 +16,15 @@ __pycache__/
 .env
 *.key
 
-# Media outputs (large files)
+# Media (large files)
 *.mp4
 *.mov
+*.webm
+*.mkv
 *.wav
+*.mp3
+*.gif
+data/
 
 # macOS
 .DS_Store

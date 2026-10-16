@@ -38,7 +38,12 @@ Legend: ✅ worked well · ⚠️ friction / confusing · ❌ broken
 
 ## Project-based testing
 
-_(Hallucination Spotter and Silent Film Foley: performance, video handling, local models via LM Studio, Hugging Face models on Cloud)_
+| # | Area | Status | Notes |
+|---|---|---|---|
+| 1 | `@pxt.udf` in a standalone script | ✅ | Defining a UDF at the top level of a script raises a clear error explaining to move it into an importable module. Fixed in one step. |
+| 2 | Frame iterator + YOLOX on a 19 s video | ✅ | `frame_iterator(fps=1)` produced 19 frames instantly; `yolox_m` on all frames took ~46 s on an M-series Mac. Stored computed columns mean re-running the script skips finished work, which is great for iterating. |
+| 3 | `av` vs `cv2` dylib warning | ⚠️ | With `pixeltable` + `pixeltable-yolox` installed together, macOS prints `objc: Class AVFFrameReceiver is implemented in both .../av/.dylibs/libavdevice... and .../cv2/.dylibs/libavdevice...`. Harmless so far, but noisy and alarming ("mysterious crashes"). Possibly `opencv-python-headless` would avoid the duplicate. |
+| 4 | Dashboard "Add cloud catalog…" | ❌ | Entering the Cloud database spun for a while, then failed with `gaierror: [Errno 8] nodename nor servname provided, or not known`. Unclear which value the dialog expects (`pxt://vinod-lab:main`? a URL?). A placeholder/example in the dialog would help. |
 
 ---
 
