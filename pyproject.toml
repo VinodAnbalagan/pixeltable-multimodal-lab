@@ -3,7 +3,24 @@ name = "pixeltable-multimodal-lab"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "datasets>=5.1.0",
+    "librosa>=1.0.0",
     "openai>=3.31.0",
     "pixeltable-yolox>=0.4.3",
-    "pixeltable[serve]==0.7.12",
+    "pixeltable[serve]>=0.7.18",
+    "soundfile>=0.14.0",
+    "transformers>=5.20.1",
 ]
+
+[[tool.pixeltable.database]]
+# The local database. vars supply the values of the config vars a schema declares; a hosted
+# database is a second entry, named by its uri.
+# vars.media_dest = 's3://bucket/prefix'
+
+[[tool.pixeltable.database]]
+# Pixeltable Cloud: runs BLIP + CLAP for Silent Film Foley.
+name = 'pxt://vinod-lab:main'
+python_version = '3.12'
+system_dependencies = ['ffmpeg']
+cpu = 1.0
+memory_mb = 2048  # Community plan maximum

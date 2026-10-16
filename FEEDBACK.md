@@ -29,10 +29,15 @@ Legend: ✅ worked well · ⚠️ friction / confusing · ❌ broken
 |---|---|---|---|
 | 1 | `pxt login` / `pxt whoami` | ✅ | Browser code flow worked. `whoami` clearly said "No organization yet" and gave the exact next command. |
 | 2 | `pxt org create` + `pxt db status` | ✅ | `main` went PROVISIONING → AVAILABLE. Status output (cpu / memory / disk / pods) is very readable. |
-| 3 | `pxt db update` (first upload) | ❌ | Failed after ~3s: `SSL: CERTIFICATE_VERIFY_FAILED` in `_put_artifact` (`urllib.request.urlopen`). Cause: python.org macOS Python 3.12 has no CA certificates until "Install Certificates.command" is run. Login and status worked, so only the artifact upload path hits it. Suggest: use `certifi` for the upload's SSL context (like `requests` does), or catch this error and print the macOS fix. Common setup for Mac users. **Resolved:** linked Python 3.12's OpenSSL cafile to `certifi`, then had to `kill` the background daemon on :22089 (it kept the old SSL settings). After that, `pxt db update` → `applied AVAILABLE`. Note: the daemon restart step isn't obvious; a `pxt daemon restart` command (or a hint in the error) would help. |
+| 3 | `pxt db update` (first upload) | ❌ | Failed after ~3s: `SSL: CERTIFICATE_VERIFY_FAILED` in `_put_artifact` (`urllib.request.urlopen`). Cause: python.org macOS Python 3.12 ships without CA certificates until "Install Certificates.command" is run. `pxt login` and `pxt db status` worked on the same setup; only the artifact upload failed. **Resolved:** linked Python 3.12's OpenSSL cafile to `certifi`, then stopped the background daemon on :22089 (it was still running with the old SSL state). After that, `pxt db update` → `applied AVAILABLE`. |
 | 4 | `pxt schema update` + `pxt service update` on Cloud | ✅ | Public URL returned immediately (`https://vinod-lab-main.svc.pxt.run/ingest`). Same commands as local, only the target changes, which is very nice. |
 | 5 | `insert.py` against `pxt://vinod-lab:main/docs` | ✅ / ⚠️ | Worked (`Hello` → `HELLO`). Minor confusion: it first prints `Connected to Pixeltable database at: postgresql+psycopg://...pgdata` (the *local* DB) even though the insert goes to Cloud. The docs mention this, but a line like "Using Cloud table pxt://vinod-lab:main/docs" would remove the doubt. |
 | 6 | `pxt key create` + `curl` with `X-api-key` | ✅ | Hosted route returned `id`, `title_upper`, `summary` as documented. |
+| 7 | Local 0.7.12 vs Cloud | ✅ | `pxt ls` against Cloud returned a clear message: `Unsupported proxy protocol version: 5 (server expects 7) ... update to the latest Pixeltable`. Upgrading to 0.7.18 fixed it. |
+| 8 | Resource request above plan limit | ✅ | Asking for 2 vCPU / 6144 MB returned a clear 403 explaining the Community limit (1 vCPU / 2048 MB) and exactly what to set. |
+| 9 | Image build with torch + transformers | ✅ | `pxt db update` with BLIP/CLAP dependencies (torch, transformers, librosa, ffmpeg) completed (`generation 2 done`). It took ~30+ minutes; build progress isn't visible beyond "waiting for image build". |
+| 10 | BLIP + CLAP on Cloud at 1 vCPU / 2048 MB | ✅ | Inserted 200 sounds (CLAP audio embedding index) and 3 clips → 46 scenes (BLIP captions + CLAP text search via a `@pxt.query` computed column). All values computed; results matched the local run. |
+| 11 | Inserts into Cloud tables | ⚠️ | `insert()` into Cloud tables printed nothing, whereas local inserts print "Inserted N rows with 0 errors". Had to check with `pxt ls --counts` / `pxt rows`. |
 
 ---
 
@@ -42,8 +47,7 @@ Legend: ✅ worked well · ⚠️ friction / confusing · ❌ broken
 |---|---|---|---|
 | 1 | `@pxt.udf` in a standalone script | ✅ | Defining a UDF at the top level of a script raises a clear error explaining to move it into an importable module. Fixed in one step. |
 | 2 | Frame iterator + YOLOX on a 19 s video | ✅ | `frame_iterator(fps=1)` produced 19 frames instantly; `yolox_m` on all frames took ~46 s on an M-series Mac. Stored computed columns mean re-running the script skips finished work, which is great for iterating. |
-| 3 | `av` vs `cv2` dylib warning | ⚠️ | With `pixeltable` + `pixeltable-yolox` installed together, macOS prints `objc: Class AVFFrameReceiver is implemented in both .../av/.dylibs/libavdevice... and .../cv2/.dylibs/libavdevice...`. Harmless so far, but noisy and alarming ("mysterious crashes"). Possibly `opencv-python-headless` would avoid the duplicate. |
-| 4 | Dashboard "Add cloud catalog…" | ❌ | Entering the Cloud database spun for a while, then failed with `gaierror: [Errno 8] nodename nor servname provided, or not known`. Unclear which value the dialog expects (`pxt://vinod-lab:main`? a URL?). A placeholder/example in the dialog would help. |
+| 3 | `av` vs `cv2` dylib warning | ⚠️ | With `pixeltable` + `pixeltable-yolox` installed together, macOS prints `objc: Class AVFFrameReceiver is implemented in both .../av/.dylibs/libavdevice... and .../cv2/.dylibs/libavdevice...`. No functional problems observed; only the warning. |
 
 ---
 

@@ -130,3 +130,91 @@ def omitted_objects(mentioned: list[str], detected: list[str]) -> list[str]:
 def hallucination_rate(mentioned: list[str], hallucinated: list[str]) -> float:
     """Per-frame CHAIR-i: hallucinated / mentioned."""
     return len(hallucinated) / len(mentioned) if mentioned else 0.0
+
+
+# ---------------------------------------------------------------------------
+# Rendering
+# ---------------------------------------------------------------------------
+
+_WHITE = (240, 240, 240)
+_GREEN = (80, 200, 120)
+_RED = (235, 64, 52)
+_YELLOW = (250, 200, 40)
+_GRAY = (150, 150, 150)
+_BG = (12, 12, 12)
+
+
+def _word_class(word: str) -> str | None:
+    w = re.sub(r'[^a-z]', '', word.lower())
+    for cand in (w, w[:-2] if w.endswith('es') else '', w[:-1] if w.endswith('s') else ''):
+        if cand and cand in VOCAB:
+            return VOCAB[cand]
+    return None
+
+
+def _wrap(draw, words, font, width):
+    lines, line = [], []
+    for word in words:
+        trial = ' '.join(w for w, _ in line + [(word, None)])
+        if line and draw.textlength(trial, font=font) > width:
+            lines.append(line)
+            line = []
+        line.append((word, None))
+    if line:
+        lines.append(line)
+    return [[w for w, _ in ln] for ln in lines]
+
+
+@pxt.udf
+def annotate(
+    frame: PIL.Image.Image,
+    caption: str,
+    mentioned: list[str],
+    hallucinated: list[str],
+    omitted: list[str],
+    second: int,
+) -> PIL.Image.Image:
+    """Frame with the caption underneath: green = confirmed by the detector,
+    red = not found by the detector, plus the objects the caption left out."""
+    from PIL import ImageDraw, ImageFont
+
+    width, pad = 960, 24
+    img = frame.convert('RGB')
+    img = img.resize((width, round(img.height * width / img.width)))
+
+    font = ImageFont.load_default(size=24)
+    small = ImageFont.load_default(size=19)
+    probe = ImageDraw.Draw(PIL.Image.new('RGB', (1, 1)))
+    lines = _wrap(probe, (caption or '').split(), font, width - 2 * pad)
+    line_h, panel_h = 32, 0
+    panel_h = pad + len(lines) * line_h + 12 + 2 * 28 + pad
+
+    canvas = PIL.Image.new('RGB', (width, img.height + panel_h), _BG)
+    canvas.paste(img, (0, 0))
+    draw = ImageDraw.Draw(canvas)
+
+    draw.rectangle((0, 0, 200, 40), fill=_BG)
+    draw.text((12, 8), f'Gemma 4  |  t = {second}s', font=small, fill=_WHITE)
+
+    y = img.height + pad
+    for line in lines:
+        x = pad
+        for word in line:
+            cls = _word_class(word)
+            color = _WHITE
+            if cls in hallucinated:
+                color = _RED
+            elif cls in mentioned:
+                color = _GREEN
+            draw.text((x, y), word, font=font, fill=color)
+            x += draw.textlength(word + ' ', font=font)
+        y += line_h
+
+    y += 12
+    flagged = ', '.join(hallucinated) if hallucinated else 'none'
+    missed = ', '.join(omitted) if omitted else 'none'
+    draw.text((pad, y), f'Not found by detector: {flagged}', font=small,
+              fill=_RED if hallucinated else _GRAY)
+    draw.text((pad, y + 28), f'Detected but not mentioned: {missed}', font=small,
+              fill=_YELLOW if omitted else _GRAY)
+    return canvas

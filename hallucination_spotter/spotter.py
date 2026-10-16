@@ -28,6 +28,7 @@ from pixeltable.functions.video import frame_iterator
 from pixeltable.functions.yolox import yolox
 
 from hallucination_spotter.udfs import (
+    annotate,
     describe,
     describe_thinking,
     detected_objects,
@@ -112,6 +113,11 @@ def report(suffix: str, label: str) -> None:
 
 
 add_variant('', describe)
+frames.add_computed_column(
+    annotated=annotate(frames.frame, frames.caption, frames.mentioned, frames.hallucinated,
+                       frames.omitted, frames.pos),
+    if_exists='ignore',
+)
 if THINK:
     add_variant('_think', describe_thinking)
 
