@@ -25,7 +25,14 @@ Legend: ✅ worked well · ⚠️ friction / confusing · ❌ broken
 
 ## Cloud beta
 
-_(to be filled in during / after the setup session)_
+| # | Step | Status | Notes |
+|---|---|---|---|
+| 1 | `pxt login` / `pxt whoami` | ✅ | Browser code flow worked. `whoami` clearly said "No organization yet" and gave the exact next command. |
+| 2 | `pxt org create` + `pxt db status` | ✅ | `main` went PROVISIONING → AVAILABLE. Status output (cpu / memory / disk / pods) is very readable. |
+| 3 | `pxt db update` (first upload) | ❌ | Failed after ~3s: `SSL: CERTIFICATE_VERIFY_FAILED` in `_put_artifact` (`urllib.request.urlopen`). Cause: python.org macOS Python 3.12 has no CA certificates until "Install Certificates.command" is run. Login and status worked, so only the artifact upload path hits it. Suggest: use `certifi` for the upload's SSL context (like `requests` does), or catch this error and print the macOS fix. Common setup for Mac users. **Resolved:** linked Python 3.12's OpenSSL cafile to `certifi`, then had to `kill` the background daemon on :22089 (it kept the old SSL settings). After that, `pxt db update` → `applied AVAILABLE`. Note: the daemon restart step isn't obvious; a `pxt daemon restart` command (or a hint in the error) would help. |
+| 4 | `pxt schema update` + `pxt service update` on Cloud | ✅ | Public URL returned immediately (`https://vinod-lab-main.svc.pxt.run/ingest`). Same commands as local, only the target changes, which is very nice. |
+| 5 | `insert.py` against `pxt://vinod-lab:main/docs` | ✅ / ⚠️ | Worked (`Hello` → `HELLO`). Minor confusion: it first prints `Connected to Pixeltable database at: postgresql+psycopg://...pgdata` (the *local* DB) even though the insert goes to Cloud. The docs mention this, but a line like "Using Cloud table pxt://vinod-lab:main/docs" would remove the doubt. |
+| 6 | `pxt key create` + `curl` with `X-api-key` | ✅ | Hosted route returned `id`, `title_upper`, `summary` as documented. |
 
 ---
 
