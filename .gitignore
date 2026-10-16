@@ -1,0 +1,22 @@
+# Alison's tutorial repo (cloned separately, not part of this project)
+pxt-champs/
+
+# Downloaded Pixeltable docs (reference only)
+docs/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+*.key
+
+# Media outputs (large files)
+*.mp4
+*.mov
+*.wav
+
+# macOS
+.DS_Store
