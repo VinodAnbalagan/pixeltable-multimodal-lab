@@ -19,6 +19,7 @@ import numpy as np
 import soundfile as sf
 
 import pixeltable as pxt
+from pixeltable.functions.video import with_audio
 
 from silent_film_foley.load_data import CLIPS, DATA, SOUNDS_DIR, table
 
@@ -88,7 +89,7 @@ def main(target: str) -> None:
         if_exists='ignore',
     )
     renders.add_computed_column(
-        final=renders.video.with_audio(renders.soundtrack), if_exists='ignore'
+        final=with_audio(renders.video, renders.soundtrack), if_exists='ignore'
     )
 
     done = {r['title'] for r in renders.select(renders.title).collect()}

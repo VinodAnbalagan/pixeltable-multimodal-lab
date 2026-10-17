@@ -2,7 +2,7 @@
 
 Running log of what worked, what was confusing, and what broke while testing Pixeltable (local + Cloud beta). Written for the Pixeltable team.
 
-**Setup:** macOS (Apple Silicon, 16 GB), Python via `uv`, `pixeltable[serve]` 0.7.12, repo `apreshill/pxt-champs`.
+**Setup:** macOS (Apple Silicon, 16 GB), Python 3.12 via `uv`. Quickstart on `pixeltable[serve]` 0.7.12 (repo `apreshill/pxt-champs`); projects on 0.7.18. Cloud org on the Community plan.
 
 Legend: ✅ worked well · ⚠️ friction / confusing · ❌ broken
 
