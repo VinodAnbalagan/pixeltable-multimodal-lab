@@ -51,13 +51,14 @@ Legend: ✅ worked well · ⚠️ friction / confusing · ❌ broken
 
 ---
 
-## Docs
-
-_(gaps, unclear wording, missing examples)_
-
----
-
 ## Things I liked
 
-- The plan / apply style of `diff` then `update` makes changes feel safe.
-- One `app.py` holding both the tables and the API is easy to reason about.
+- **Incremental computation.** Adding a column computed only that column; re-running a script skipped finished work. Iterating on a pipeline never meant re-calling the model.
+- **Media as first-class types.** Video, image and audio columns, with frame extraction as a one-line view.
+- **Embedding index on audio.** Text-to-audio search with CLAP worked by declaring an index; no separate vector database.
+- **Same file, local or Cloud.** Only the target changes (`/foley` vs `pxt://org:main`), and results matched exactly across both.
+- **Plan before apply.** `diff` then `update`, with "0 destructive" spelled out, makes changes feel safe.
+- **One file for tables and API.** `app.py` holding both the schema and the routes is easy to reason about.
+- **Clear error messages.** The UDF-in-script error, the version mismatch and the plan-limit 403 each said exactly what to do. That was very helpful. 
+- **Dashboard.** Inputs vs computed columns, UDF badges and column lineage make a pipeline readable at a glance.
+- **Built-in video tools.** `make_video` and `with_audio` meant the final renders stayed inside Pixeltable.
