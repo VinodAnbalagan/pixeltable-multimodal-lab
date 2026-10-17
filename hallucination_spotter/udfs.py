@@ -2,6 +2,7 @@
 
 import base64
 import io
+import os
 import re
 
 import PIL.Image
@@ -9,8 +10,9 @@ from openai import OpenAI
 
 import pixeltable as pxt
 
-LMSTUDIO_URL = 'http://localhost:1234/v1'
-VLM_MODEL = 'google/gemma-4-12b'
+# Any OpenAI-compatible server with a vision model (LM Studio, Ollama, vLLM, ...).
+LMSTUDIO_URL = os.environ.get('VLM_BASE_URL', 'http://localhost:1234/v1')
+VLM_MODEL = os.environ.get('VLM_MODEL', 'google/gemma-4-12b')
 
 PROMPT = 'Describe this image in one or two sentences. Mention every object you can see.'
 

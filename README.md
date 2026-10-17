@@ -52,7 +52,12 @@ python -m silent_film_foley.load_data pxt://<org>:main
 python -m silent_film_foley.render pxt://<org>:main
 ```
 
-Media files (videos, sounds, outputs) are not committed.
+### Data
+
+- **Hallucination Spotter:** no files needed; it uses a sample video from Pixeltable's docs. The VLM is any OpenAI-compatible server with a vision model: set `VLM_BASE_URL` and `VLM_MODEL` (defaults: LM Studio on `localhost:1234`, `google/gemma-4-12b`).
+- **Silent Film Foley:** `load_data` downloads the ESC-50 sounds from Hugging Face automatically. The three Keaton clips and example outputs are attached to the GitHub release; place the clips in `silent_film_foley/data/`.
+
+Media files are not committed to the repository.
 
 ## Credits
 
