@@ -32,7 +32,10 @@ FADE = 0.15     # seconds of fade in/out at each sound change
 def _load(name: str) -> np.ndarray:
     import librosa
 
-    wav, _ = librosa.load(SOUNDS_DIR / f'{name}.wav', sr=SR, mono=True)
+    path = SOUNDS_DIR / f'{name}.wav'
+    if not path.exists():  # FSD50K library clips
+        path = DATA / 'fsd' / f'{name}.wav'
+    wav, _ = librosa.load(path, sr=SR, mono=True)
     return wav
 
 

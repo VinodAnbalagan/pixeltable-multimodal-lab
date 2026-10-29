@@ -1,0 +1,18 @@
+start,end,layer,source,material,action,heard_from,query_1,query_2,query_3,gain,gain_end,evidence
+0.0,52.8,ambience,the forest itself,fog and darkness,eerie tension that builds until the face-to-face reveal,all around,eerie dark ambience,ominous low drone,suspenseful rumbling drone,0.1,0.5,whole clip; reveal at 51.5-52.8
+0.0,14.2,ambience,wind,dry leaves and bare branches,wind rustling the leaves while she is alone on screen,outdoors close by,wind rustling dry leaves,leaves rustling in the wind,gentle breeze through leaves,0.85,0.85,0.0-14.0 (only the girl and the monolith)
+14.2,52.8,ambience,wind,air in bare trees,cold wind receding under the score,outdoors,cold wind in bare trees,howling wind,gusty wind,0.5,0.3,14.5-52.5 (the score carries the scene)
+1.0,3.0,event,footsteps,small boots on rock and leaves,the girl walks toward the monolith,from above at a distance,light footsteps on gravel,walking on dry leaves,footsteps on stone,0.4,,1.50-3.00 (high wide shot)
+6.0,7.5,event,the girl,breath,closes her eyes and takes a deep breath,close,deep breath,inhale and exhale,breathing,0.3,,6.00-7.50 (eyes closed)
+9.0,10.5,event,the girl,breath on hands,blows into her hands and rubs them,close,blowing air,breathing out,rubbing hands,0.25,,9.00-10.50
+13.5,14.1,event,wooden staff,air,swung hard,close,whoosh,fast swing through the air,swoosh,0.7,,13.50-14.00 (motion blur)
+14.2,14.8,event,wooden staff on stone monolith,wood on stone,strikes the monolith (impact shown after the cut),close,loud wooden thud on stone,heavy wooden knock,hard impact thump,1.0,,14.50-15.00 (sparks on the carvings)
+14.2,16.5,event,the monolith,stone,a deep boom shakes the whole place,all around,deep boom,huge explosion boom,loud thunder crack,1.0,,14.50-16.00 (strike and its aftermath)
+14.5,21.0,ambience,the ground,stone and earth,the forest trembles after the strike,all around,deep earth rumble,rolling thunder,low rumble,0.8,0.3,15.50-20.50 (stillness after the strike)
+27.5,29.0,event,the creature's leg,wood and stone,a giant root-leg tears free from the boulder beside her,to her side,heavy wood cracking,roots tearing out of the ground,stone grinding,0.9,,28.50 (motion beside her) and 29.00 (the leg in the air)
+29.0,32.4,event,the creature's leg,bone-like wood,the leg swings down from above,overhead,bone creaking,creaking wood,cracking bones,0.8,,29.00-32.00
+32.4,33.0,event,the creature's leg,wood on ground,lands on the forest floor,close,heavy thud on the ground,deep impact boom,heavy object falling,1.0,,32.50 (leg at the base of a tree)
+33.0,37.2,event,the creature's legs,bone-like wood,the camera climbs the creaking leg into the fog,overhead,bones creaking and cracking,slow creaking,bone breaking,0.8,,33.00-37.00
+35.0,36.6,event,debris,leaves and bark,falls from above,around her,small debris falling,pebbles falling,crumbling,0.4,,35.00-36.50 (particles falling)
+41.5,46.0,event,the creature,body,descends and its lights come on,overhead,deep low hum,low drone,large animal breathing,0.6,,41.50-46.00 (lights appear on the creature)
+51.5,52.8,event,the creature,breath,comes face to face with her,close,large animal breathing,heavy breathing,snorting,0.8,,51.50-52.50 (creature's face fills the frame)

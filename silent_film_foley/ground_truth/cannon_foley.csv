@@ -1,0 +1,16 @@
+start,end,layer,source,material,action,heard_from,query_1,query_2,query_3,gain,evidence
+0.0,19.0,ambience,train under the flatcar,metal wheels on rails,running,on the moving flatcar,train running on tracks,steam locomotive moving,railway wheels clattering,0.8,blurred ground in every frame 0.0-18.5
+0.0,19.0,ambience,wind,air,blowing across an open field,outdoors in the open,wind blowing outdoors,gusty wind in an open field,strong wind,0.6,open field and trees in background 0.0-18.5
+1.5,4.1,event,ramrod,wood against metal,rammed into the barrel several times,close,dull wooden thud,muffled heavy thump,wooden pole thumping,0.8,1.54-4.05
+4.5,5.0,event,ramrod,wood on wooden deck,dropped,close,wooden pole dropped on a wooden floor,wood clatter,wooden thud,0.7,4.55-5.05
+5.0,6.6,event,iron cannonball,metal on wood,lifted from the deck,close,heavy metal object scraping,metal clank,heavy metal object picked up,0.7,5.05-6.55
+8.0,9.6,event,iron cannonball,metal on metal,rolled into the barrel,close,heavy metal ball rolling,metal rolling and clunk,iron ball dropped into a metal pipe,0.8,8.05-9.55
+15.6,16.3,event,fuse,burning cord,lit and fizzing,close,fuse fizzing,sparkler hissing,match strike and sizzle,0.8,16.06 (smoke at the breech)
+19.0,24.4,ambience,train,metal wheels on rails,passing,beside the track,train passing by outdoors,steam locomotive passing,train on tracks,0.7,19.06-24.02
+19.0,28.3,ambience,wind,air,blowing,outdoors beside the track,wind blowing outdoors,gusty wind in an open field,strong wind,0.5,19.06-28.03
+21.8,24.4,event,men,boots on wooden car roofs,jumping from car to car,beside the track,footsteps on a roof,people jumping and landing,heavy footsteps and thuds,0.5,22.02-24.27 (first jump at ~22.0; 19.0-21.5 they stand)
+24.4,28.3,ambience,train,metal wheels on rails,passing,beside the track,train passing by outdoors,steam locomotive passing,train on tracks,0.7,24.52-28.03
+26.8,27.3,event,cannon,gunpowder,fires,beside the track at a distance,cannon firing,loud explosion in the distance,artillery blast,1.0,26.78 (first smoke at the muzzle)
+28.3,28.6,event,iron cannonball,metal on metal floor,lands in the engine cab (inferred across the cut),close,heavy metal object dropped on a metal floor,loud metal clang,iron thud,1.0,28.53 (ball already on the floor)
+28.3,34.8,ambience,locomotive,engine and steam,running,inside the open engine cab,locomotive engine running,steam engine machinery,engine idling,0.6,28.53-34.53
+32.5,34.8,event,iron cannonball,metal on metal floor,picked up and rolled,close,heavy ball rolling on a metal floor,metal rolling,metal scraping,0.8,32.53-34.53

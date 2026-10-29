@@ -8,6 +8,7 @@ dependencies = [
     "openai>=3.31.0",
     "pixeltable-yolox>=0.4.3",
     "pixeltable[serve]>=0.7.18",
+    "scenedetect>=0.7.2",
     "soundfile>=0.14.0",
     "transformers>=5.20.1",
 ]

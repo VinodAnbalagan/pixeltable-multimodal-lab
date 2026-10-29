@@ -1,0 +1,6 @@
+start,end,role,prompt,seed,gain,gain_end
+0.0,28.0,score: mystery,"dark ambient orchestral film score, low sustained cellos and double bass drone, sparse and slow, mysterious and ominous, quiet suspense, no drums",1,0.15,0.4
+26.0,52.8,score: rising to the reveal,"cinematic orchestral build, tremolo strings rising, swelling brass and choir, growing tension toward an awe-inspiring climax, mysterious and epic, no drums",2,0.3,1.2
+36.0,52.8,score: crescendo,"relentless orchestral crescendo, strings and choir climbing higher and higher, building intensity to a powerful peak, cinematic awe, no drums",5,0.1,1.3
+41.5,47.5,creature lights up,"otherworldly ethereal synth tones, shimmering alien glow, glassy bell-like chimes and a deep resonant hum, mysterious sci-fi atmosphere",3,0.8,0.8
+50.5,52.8,face to face,"deep alien resonant hum swelling, ethereal choir, sense of wonder",4,0.9,1.5
