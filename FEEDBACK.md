@@ -58,6 +58,10 @@ Legend: ✅ worked well · ⚠️ friction / confusing · ❌ broken
 | 11 | Long-running UDF calls | ✅ | UDFs calling a local model through an OpenAI-compatible client ran for several minutes per row without timeouts or errors from Pixeltable. |
 | 12 | Generated audio as a computed column | ✅ | A UDF returning `pxt.Audio` (MusicGen text-to-music) worked as a computed column. Each piece is generated once and stored; changing only mix settings with `update()` left the audio untouched, so iterating on the mix took seconds instead of regenerating. |
 | 13 | Audio library index at scale (local) | ✅ | A CLAP embedding index over a filtered FSD50K subset (CC0 / CC-BY clips) built locally with the same `add_embedding_index` call as the 200-clip ESC-50 library. |
+| 14 | `overlay_text` with apostrophes | ❌ | Text containing a straight apostrophe followed by a comma fails, e.g. `Et la raison est qu'au début d'une conversation, les gens…` → `No such filter: 'les gens mettent encore leur:fontsize=20…'`. The apostrophe ends the quoted `drawtext` text, so the comma is read as a filter separator. Common in French and in English contractions. Workaround: replace `'` with `’`. |
+| 15 | `overlay_text` needs `drawtext` | ⚠️ | Homebrew's default `ffmpeg` on macOS is built without libfreetype, so `overlay_text` fails with `No such filter: 'drawtext'`. Installing `ffmpeg-full` fixed it. A note in the `overlay_text` docs would help. |
+| 16 | `clip()` on a file with extra streams | ⚠️ | On an archive.org MP4, `clip()` (which maps all streams, `-map 0`) failed with `Could not find tag for codec h264 in stream #3`. A stream copy keeping only `0:v:0` and `0:a:0` fixed it. An option to keep only the main video/audio streams would help. |
+| 17 | Whisper + translation pipeline | ✅ | `extract_audio` → `whisper.transcribe` on a 1-hour lecture, a sentence-embedding index over 705 segments, and `translation()` with four opus-mt models as computed columns all worked first time. Whisper `base.en` scored 5.7% WER against MIT's official captions. |
 
 ---
 
